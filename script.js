@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSubmit = document.getElementById('btn-submit-deletion');
 
     if (deletionForm && formContainer && successContainer) {
-        deletionForm.addEventListener('submit', (e) => {
+        deletionForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Show loading animation on button
@@ -57,26 +57,143 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnSubmit.disabled = true;
             }
 
-            // Simulate API request (2-step deletion process)
-            setTimeout(() => {
+            try {
+                let identifier = document.getElementById('account-identifier').value.trim();
+                const password = document.getElementById('account-password').value;
+                const countryCode = document.getElementById('country-code').value;
+                
+                const isEmail = identifier.includes('@');
+                if (!isEmail) {
+                    // Remove all spaces, hyphens, parentheses
+                    identifier = identifier.replace(/[\s\-\(\)]/g, '');
+                    
+                    // Remove country prefixes (+91, +1, 91, 1) if the user manually typed them in the box
+                    if (identifier.startsWith('+91')) {
+                        identifier = identifier.substring(3);
+                    } else if (identifier.startsWith('+1')) {
+                        identifier = identifier.substring(2);
+                    } else if (identifier.startsWith('91') && identifier.length === 12) {
+                        identifier = identifier.substring(2);
+                    } else if (identifier.startsWith('1') && identifier.length === 11) {
+                        identifier = identifier.substring(1);
+                    }
+                    
+                    // Prepend the selected country code (e.g. +91 or +1)
+                    identifier = countryCode + identifier;
+                }
+
+                const loginPayload = {
+                    password: password
+                };
+                if (isEmail) {
+                    loginPayload.email = identifier;
+                } else {
+                    loginPayload.phone = identifier;
+                }
+
+                console.log('Onmint Web - Sending Login Request:', {
+                    url: 'https://api.onmint.in/api/v1/auth/login',
+                    payload: loginPayload
+                });
+
+                // 1. Hit Login API
+                const loginRes = await fetch('https://api.onmint.in/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(loginPayload)
+                });
+                
+                console.log('Onmint Web - Login Response Status:', loginRes.status);
+                
+                const loginData = await loginRes.json();
+                console.log('Onmint Web - Login Response Data:', loginData);
+
+                if (!loginRes.ok || !loginData.success) {
+                    throw new Error(loginData.message || 'Login failed. Please check your credentials.');
+                }
+                
+                const accessToken = loginData.data.accessToken;
+                console.log('Onmint Web - Got access token successfully.');
+                
+                console.log('Onmint Web - Sending Account Deletion Request:', {
+                    url: 'https://api.onmint.in/api/v1/account/delete'
+                });
+
+                // 2. Hit Delete Account API
+                const delRes = await fetch('https://api.onmint.in/api/v1/account/delete', {
+                    method: 'DELETE',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                    body: JSON.stringify({ confirmPassword: password })
+                });
+                
+                console.log('Onmint Web - Delete Response Status:', delRes.status);
+
+                const delData = await delRes.json();
+                console.log('Onmint Web - Delete Response Data:', delData);
+
+                if (!delRes.ok || !delData.success) {
+                    throw new Error(delData.message || 'Account deletion failed.');
+                }
+
+                // Show success UI (Directly skipping token confirmation since it deleted immediately)
+                formContainer.classList.add('hidden');
+                successContainer.classList.remove('hidden');
+                
+                // Update Step indicators to Step 3 Complete immediately
+                const steps = document.querySelectorAll('.step-num');
+                if (steps.length >= 3) {
+                    steps[1].classList.add('active');
+                    steps[2].classList.add('active');
+                }
+                
+                const tokenBox = document.getElementById('token-box');
+                if (tokenBox) {
+                    tokenBox.innerHTML = `
+                        <div style="text-align: center; color: var(--success); font-weight: 700; padding: 8px 0;">
+                            🎉 Account & Data Permanently Deleted Successfully!
+                        </div>
+                        <p style="font-size: 12px; color: var(--slate-600); text-align: center; margin-top: 8px;">
+                            All profile fields, bookings, prescriptions, notifications, and files have been cleared from our databases.
+                        </p>
+                    `;
+                }
+
+                const successDesc = successContainer.querySelector('.success-desc');
+                if (successDesc) {
+                    successDesc.textContent = 'GDPR Deletion complete. No active data records found under this identifier.';
+                }
+
+            } catch (err) {
+                console.error('Onmint Web - Error occurred during deletion flow:', err);
+                alert(err.message);
+            } finally {
                 // Reset button state
                 if (btnText && btnLoader) {
                     btnText.classList.remove('hidden');
                     btnLoader.classList.add('hidden');
                     btnSubmit.disabled = false;
                 }
+            }
+        });
+    }
 
-                // Transition to success/verification token view
-                formContainer.classList.add('hidden');
-                successContainer.classList.remove('hidden');
-                
-                // Track request identifier
-                const identifier = document.getElementById('account-identifier').value;
-                const successDesc = successContainer.querySelector('.success-desc');
-                if (successDesc && identifier) {
-                    successDesc.innerHTML = `We have sent a 24-hour verification token to <strong>${identifier}</strong>. Please enter the token below to confirm deletion.`;
-                }
-            }, 1800);
+    // Password Eye Toggle Handler
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('account-password');
+    if (togglePasswordBtn && passwordInput) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle eye icon (simple opacity or switch SVG based on state if needed)
+            if (type === 'text') {
+                togglePasswordBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+            } else {
+                togglePasswordBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+            }
         });
     }
 
