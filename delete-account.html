@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Account Deletion | Onmint</title>
+    <meta name="description" content="Request deletion of your Onmint user or vendor partner account in compliance with GDPR. Permanently erase your personal profiles, bookings, and files.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('onmint-theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Beautiful Animated Glowing Blobs -->
+    <div class="blobs-container">
+        <div class="blob-bg blob-teal animate-pulse-slow"></div>
+        <div class="blob-bg blob-blue animate-pulse-delayed"></div>
+        <div class="blob-bg blob-purple animate-pulse-slow"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="url(#logoGrad)" stroke="white" stroke-width="2"/>
+                    <path d="M50 25V75M25 50H75" stroke="white" stroke-width="12" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#3B82F6"/>
+                            <stop offset="1" stop-color="#1D4ED8"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">ON<span class="highlight">MINT</span></span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html#services">Services</a>
+                <a href="index.html#features">Why Onmint</a>
+                <a href="https://privacy.policy.onmint.in/" target="_blank">Privacy Policy</a>
+                <a href="https://privacy.policy.onmint.in/" target="_blank">Terms & Conditions</a>
+                <a href="delete-account.html" class="nav-delete-link active">Account Deletion</a>
+                <a href="index.html#download" class="nav-btn-download">Download App</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                
+                <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <nav class="drawer-links">
+            <a href="index.html#services" class="drawer-link">Services</a>
+            <a href="index.html#features" class="drawer-link">Why Onmint</a>
+            <a href="https://privacy.policy.onmint.in/" target="_blank" class="drawer-link">Privacy Policy</a>
+            <a href="https://privacy.policy.onmint.in/" target="_blank" class="drawer-link">Terms & Conditions</a>
+            <a href="delete-account.html" class="drawer-link delete-nav active">Account Deletion</a>
+            <a href="index.html#download" class="drawer-link drawer-btn">Download App</a>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <main class="page-main">
+        <div class="hero-bg-glow"></div>
+        <div class="container account-page-container">
+            <!-- Left Info Panel -->
+            <div class="info-panel">
+                <div class="badge">GDPR Data Rights</div>
+                <h1>Account & Data <br><span class="gradient-text">Deletion Request</span></h1>
+                <p class="panel-subtitle">At Onmint, we respect your data rights under the General Data Protection Regulation (GDPR). You can request the permanent removal of your account and all associated personal data from our systems.</p>
+                
+                <div class="details-list">
+                    <div class="details-item">
+                        <span class="details-icon">🗑️</span>
+                        <div class="details-text">
+                            <h3>What gets deleted permanently:</h3>
+                            <ul>
+                                <li>User profiles, passwords, contact details (email & phone).</li>
+                                <li>Service bookings, prescriptions, medical records, and reports.</li>
+                                <li>Stored S3 files (profile pictures, license PDFs, prescriptions).</li>
+                                <li>Notification logs and active chats.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="details-item">
+                        <span class="details-icon">⚠️</span>
+                        <div class="details-text">
+                            <h3>Important Note:</h3>
+                            <p>Once deleted, this action is <strong>irreversible</strong>. No data recovery is possible, and we do not maintain backups of deleted user accounts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Form Panel -->
+            <div class="form-panel">
+                <div class="glass-form-card" id="form-container">
+                    <h2 class="form-title">Delete Account Form</h2>
+                    <p class="form-desc">Provide your registered account details to initiate the deletion process. Requests are processed securely via our <code>/account/delete</code> endpoint.</p>
+                    
+                    <form id="deletion-request-form">
+                        <div class="form-group">
+                            <label for="account-role">Account Type / Role</label>
+                            <select id="account-role" required>
+                                <option value="" disabled selected>Select your account role</option>
+                                <option value="patient">Patient (User App)</option>
+                                <option value="doctor">Doctor (Partner App)</option>
+                                <option value="nurse">Nurse (Partner App)</option>
+                                <option value="ambulance">Ambulance Driver (Partner App)</option>
+                                <option value="pharmacist">Pharmacist / Chemist (Partner App)</option>
+                                <option value="pathology">Pathology Laboratory (Partner App)</option>
+                                <option value="bloodbank">Blood Bank Administrator (Partner App)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="account-identifier">Registered Email or Phone Number</label>
+                            <input type="text" id="account-identifier" placeholder="e.g. user@example.com or +919876543210" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deletion-reason">Reason for leaving (Optional)</label>
+                            <textarea id="deletion-reason" rows="3" placeholder="Tell us why you want to delete your account..."></textarea>
+                        </div>
+                        
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="confirm-deletion-check" required>
+                            <label for="confirm-deletion-check">I confirm that I want to delete my Onmint account and erase all associated data. I understand this action is permanent.</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-danger btn-block" id="btn-submit-deletion">
+                            <span class="btn-text">Submit Request</span>
+                            <span class="btn-loader hidden"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Success Screen (Hidden by default) -->
+                <div class="glass-form-card success-card hidden" id="success-container">
+                    <div class="success-icon-wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                    <h2 class="form-title text-center">Deletion Request Initiated!</h2>
+                    <p class="text-center success-desc">We have sent a verification code / confirmation link to your registered email and phone number.</p>
+                    
+                    <div class="success-steps">
+                        <div class="step-line"></div>
+                        <div class="step">
+                            <span class="step-num active">1</span>
+                            <span class="step-label">Request Submitted</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-num active" id="step-two-badge">2</span>
+                            <span class="step-label">Verify Email/SMS</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">3</span>
+                            <span class="step-label">Account Erased</span>
+                        </div>
+                    </div>
+                    
+                    <div class="token-verification-box" id="token-box">
+                        <p class="text-center mini-desc">Enter the verification token received in email/SMS below to confirm immediate deletion:</p>
+                        <form id="token-verification-form">
+                            <div class="form-group-row">
+                                <input type="text" id="deletion-token" placeholder="Enter deletion token" required>
+                                <button type="submit" class="btn btn-danger btn-small">Confirm Deletion</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <a href="index.html" class="btn btn-secondary btn-block text-center mt-16">Return to Home</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <span class="logo-text">ON<span class="highlight">MINT</span></span>
+                </div>
+                <p>Connecting patients with local medical service providers instantly. Transparent, direct, and fee-free in-app coordination.</p>
+            </div>
+            
+            <div class="footer-links-group">
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="https://privacy.policy.onmint.in/" target="_blank">Privacy Policy</a>
+                    <a href="https://privacy.policy.onmint.in/" target="_blank">Terms & Conditions</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <a href="delete-account.html">Account Deletion Policy</a>
+                    <a href="mailto:support@onmint.in">support@onmint.in</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p>&copy; 2026 Onmint Technologies Private Limited. All rights reserved.</p>
+                <p>Website live at <a href="https://onmint.in">https://onmint.in</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
