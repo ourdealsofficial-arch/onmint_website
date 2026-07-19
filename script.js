@@ -244,14 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Dark/Light Theme Switcher with Persistence
     const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('onmint-theme') || 'light';
 
-    // Apply the saved theme on load
-    if (currentTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.removeAttribute('data-theme');
-    }
+    // Force light theme by default on load, ignoring previous dark preferences
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('onmint-theme', 'light');
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {

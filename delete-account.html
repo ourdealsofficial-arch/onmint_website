@@ -6,16 +6,23 @@
     <title>Onmint</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="description" content="Request deletion of your Onmint user or vendor partner account in compliance with GDPR. Permanently erase your personal profiles, bookings, and files.">
+    <link rel="canonical" href="https://onmint.in/delete-account.html">
+    
+    <!-- Open Graph SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Onmint - Request Account Deletion (GDPR)">
+    <meta property="og:description" content="Request deletion of your Onmint user or vendor partner account in compliance with GDPR. Permanently erase your personal profiles, bookings, and files.">
+    <meta property="og:url" content="https://onmint.in/delete-account.html">
+    <meta property="og:image" content="https://onmint.in/favicon.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script>
         (function() {
-            const savedTheme = localStorage.getItem('onmint-theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
+            // Force light theme by default on page load
+            document.documentElement.removeAttribute('data-theme');
         })();
     </script>
 </head>

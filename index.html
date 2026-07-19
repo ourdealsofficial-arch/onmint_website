@@ -6,16 +6,50 @@
     <title>Onmint</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="description" content="Onmint is your premier digital healthcare platform. Consult doctors online, book home nurses, pathology lab tests, ambulances, and order medicines in a single tap.">
+    <link rel="canonical" href="https://onmint.in">
+    
+    <!-- Open Graph / Facebook / LinkedIn SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Onmint - Your All-In-One Digital Healthcare Bridge">
+    <meta property="og:description" content="Consult certified doctors online, book home nurses, schedule pathology lab tests with home sample collection, request ambulance transit, or order doorstep medicines in a single tap.">
+    <meta property="og:url" content="https://onmint.in">
+    <meta property="og:image" content="https://onmint.in/favicon.png">
+    
+    <!-- Twitter Cards SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Onmint - Your All-In-One Digital Healthcare Bridge">
+    <meta name="twitter:description" content="Consult certified doctors online, book home nurses, schedule pathology lab tests with home sample collection, request ambulance transit, or order doorstep medicines in a single tap.">
+    <meta name="twitter:image" content="https://onmint.in/favicon.png">
+    
+    <!-- Structured Data (Schema.org JSON-LD) for Healthcare Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalOrganization",
+      "name": "Onmint",
+      "url": "https://onmint.in",
+      "logo": "https://onmint.in/favicon.png",
+      "description": "Onmint is a premier digital healthcare platform enabling online doctor consultations, home nursing, pathology lab test bookings, ambulance transits, and pharmacy deliveries.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "support@onmint.in",
+        "contactType": "customer support"
+      }
+    }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script>
         (function() {
-            const savedTheme = localStorage.getItem('onmint-theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
+            // Force light theme by default on page load
+            document.documentElement.removeAttribute('data-theme');
         })();
     </script>
 </head>
