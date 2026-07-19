@@ -634,7 +634,7 @@ h1, h2, h3, h4 {
 
 /* 🤝 Vision / About Us Card wrapper */
 .vision-section {
-    padding: 80px 0;
+    padding: 48px 0;
     position: relative;
     z-index: 10;
 }
@@ -642,7 +642,7 @@ h1, h2, h3, h4 {
 .vision-card {
     background-color: white;
     border-radius: 28px;
-    padding: 36px 48px;
+    padding: 24px 40px;
     box-shadow: var(--card-shadow);
     border: 1px solid rgba(11, 94, 63, 0.08);
     display: grid;
@@ -661,9 +661,9 @@ h1, h2, h3, h4 {
 
 .founder-image-wrapper {
     position: relative;
-    width: 220px;
-    height: 220px;
-    margin-bottom: 24px;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 12px;
 }
 
 .founder-avatar {
@@ -689,7 +689,7 @@ h1, h2, h3, h4 {
 }
 
 .founder-info h3 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
 }
 
@@ -720,7 +720,7 @@ h1, h2, h3, h4 {
     font-weight: 700;
     color: var(--slate-900);
     line-height: 1.4;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     position: relative;
     z-index: 2;
 }
@@ -740,13 +740,13 @@ h1, h2, h3, h4 {
 .vision-paragraph {
     font-size: 14.5px;
     color: var(--slate-600);
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .vision-checklist {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 12px;
 }
 
 .check-item {
