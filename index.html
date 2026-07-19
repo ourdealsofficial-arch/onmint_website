@@ -45,7 +45,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3.1">
     <script>
         (function() {
             // Force light theme by default on page load
@@ -58,13 +58,12 @@
     <div class="blobs-container">
         <div class="blob-bg blob-mint animate-pulse-slow"></div>
         <div class="blob-bg blob-soft-green animate-pulse-delayed"></div>
+        <div class="blob-bg blob-center animate-pulse-slow"></div>
+        <div class="blob-bg blob-left-mid animate-pulse-delayed"></div>
         <div class="grid-overlay"></div>
     </div>
 
-    <!-- Organic Background Leaf Decors (Mockup matching) -->
-    <div class="leaf-decor leaf-hero-left"></div>
-    <div class="leaf-decor leaf-hero-right"></div>
-    <div class="leaf-decor leaf-vision-right"></div>
+
 
     <!-- Navbar -->
     <header class="navbar">
@@ -74,28 +73,30 @@
                 <span class="logo-sub">Your Health. Our Priority.</span>
             </a>
             
-            <nav class="nav-links">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#about" class="nav-link">About Us</a>
-                <a href="#why-onmint" class="nav-link">Why Onmint?</a>
-                <a href="#vision" class="nav-link">Our Vision</a>
-            </nav>
-            
-            <div class="header-actions">
-                <a href="#download" class="nav-btn-download">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    <span>Download App</span>
-                </a>
+            <div class="nav-right-group">
+                <nav class="nav-links">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About Us</a>
+                    <a href="#why-onmint" class="nav-link">Why Onmint?</a>
+                    <a href="#vision" class="nav-link">Our Vision</a>
+                </nav>
                 
-                <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <div class="header-actions">
+                    <a href="#download" class="nav-btn-download">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span>Download App</span>
+                    </a>
+                    
+                    <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -113,7 +114,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <div class="container hero-container">
+        <div class="container-wide hero-container">
             <div class="hero-content animate-slide-up">
                 <div class="badge">• INDIA'S FIRST •</div>
                 <h1 class="hero-title">All-in-One <br><span class="highlight">Medical Service App</span></h1>
@@ -171,7 +172,7 @@
 
     <!-- Stats / Features Strip -->
     <section id="why-onmint" class="stats-section">
-        <div class="container">
+        <div class="container-wide">
             <div class="stats-card">
                 <div class="stat-item">
                     <div class="stat-icon">
@@ -234,73 +235,75 @@
     <!-- Founder's Vision & About Section inside a wide white bg card -->
     <section id="about" class="vision-section">
         <div class="container-wide">
-            <div class="vision-card">
-                <!-- Left Founder Portrait -->
-                <div class="founder-card-inner">
-                    <div class="founder-image-wrapper">
-                        <div class="founder-glow-circle"></div>
-                        <img src="images/founder_avatar.png" alt="Abhishek Maurya - Founder & Director, Onmint" class="founder-avatar">
+            <div class="vision-card-new">
+                <div class="vision-card-grid">
+                    <!-- Left Column: Founder Portrait -->
+                    <div class="founder-column">
+                        <div class="founder-header-info">
+                            <h3>Abhishek Maurya</h3>
+                            <p class="founder-subtitle">Founder & Director, Ourdeals/Onmint</p>
+                        </div>
+                        <div class="founder-photo-wrapper">
+                            <div class="founder-dots-bg"></div>
+                            <div class="founder-circle-bg"></div>
+                            <img src="images/founder_image.png?v=1.1" alt="Abhishek Maurya" class="founder-photo-new">
+                        </div>
                     </div>
-                    <div class="founder-info">
-                        <h3>Abhishek Maurya</h3>
-                        <p>Founder & Director, Onmint</p>
+                    
+                    <!-- Divider -->
+                    <div class="vision-card-divider"></div>
+                    
+                    <!-- Center Column: Vision Details -->
+                    <div class="vision-column-center">
+                        <div class="quote-container-new">
+                            <span class="quote-mark-new">“</span>
+                            <blockquote class="quote-text-new">
+                                Healthcare should reach every home, every family, and every person with <span class="green-highlight-text">just one tap.</span>
+                            </blockquote>
+                        </div>
+                        
+                        <div class="quote-underline"></div>
+                        
+                        <h2 class="vision-title-new">OUR VISION</h2>
+                        <p class="vision-desc-new">
+                            Onmint is on a mission to make quality healthcare accessible, affordable, and available to every individual in India. Through technology and trust, we bring Doctor Consultation, Nurse at Home, Lab Test, Ambulance, and Hospital Services together on one platform.
+                        </p>
+                        
+                        <div class="vision-checklist-new">
+                            <div class="checklist-item-new">
+                                <span class="check-icon-new">✓</span>
+                                <span class="check-text-new">Trusted Healthcare</span>
+                            </div>
+                            <div class="checklist-item-new">
+                                <span class="check-icon-new">✓</span>
+                                <span class="check-text-new">Fast Response</span>
+                            </div>
+                            <div class="checklist-item-new">
+                                <span class="check-icon-new">✓</span>
+                                <span class="check-text-new">Made for Every Indian</span>
+                            </div>
+                            <div class="checklist-item-new">
+                                <span class="check-icon-new">✓</span>
+                                <span class="check-text-new">Affordable Services</span>
+                            </div>
+                            <div class="checklist-item-new">
+                                <span class="check-icon-new">✓</span>
+                                <span class="check-text-new">Technology Driven</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Heart Stethoscope Graphic -->
+                    <div class="vision-column-right">
+                        <img src="images/heart_icon.png" alt="Onmint Vision" class="heart-icon-img">
                     </div>
                 </div>
                 
-                <!-- Right Vision Details -->
-                <div class="vision-content-inner">
-                    <div class="quote-icon">“</div>
-                    
-                    <blockquote class="vision-quote">
-                        Healthcare should reach every home, every family, and every person with <span class="highlight-text">just one tap.</span>
-                    </blockquote>
-                    
-                    <h2 class="vision-header">OUR VISION</h2>
-                    <p class="vision-paragraph">
-                        Onmint is on a mission to make quality healthcare accessible, affordable, and available to every individual in India. Through technology and trust, we bring Doctor Consultation, Nurse at Home, Lab Test, Ambulance, and Hospital Services together on one platform.
-                    </p>
-                    
-                    <div class="vision-checklist">
-                        <div class="check-item">
-                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Trusted Healthcare</span>
-                        </div>
-                        <div class="check-item">
-                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Technology Driven</span>
-                        </div>
-                        <div class="check-item">
-                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Affordable Services</span>
-                        </div>
-                        <div class="check-item">
-                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Made for Every Indian</span>
-                        </div>
-                        <div class="check-item">
-                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Fast Response</span>
-                        </div>
-                    </div>
-
-                    <!-- Decorative Heart/Stethoscope Graphic -->
-                    <div class="vision-vector-graphic">
-                        <svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 40C12 25 25 12 50 12C75 12 88 25 88 40C88 60 50 88 50 88C50 88 12 60 12 40Z" fill="#FEE2E2" stroke="#EF4444" stroke-width="3" stroke-linejoin="round"/>
-                            <path d="M50 28V52M38 40H62" stroke="#EF4444" stroke-width="8" stroke-linecap="round"/>
-                            <path d="M50 78C30 60 22 45 22 40" stroke="#3B82F6" stroke-width="3" stroke-dasharray="4 4"/>
-                        </svg>
-                    </div>
+                <!-- Bottom Center Tagline -->
+                <div class="vision-footer-tagline">
+                    <span class="tagline-line"></span>
+                    <span class="tagline-text">“Together, we’re building a healthier India.”</span>
+                    <span class="tagline-line"></span>
                 </div>
             </div>
         </div>
@@ -381,18 +384,20 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <a href="#home" class="footer-logo">Onmint</a>
-                <p class="footer-tagline">Your Health. Our Priority.</p>
+        <div class="container-wide footer-container">
+            <div class="footer-left-group">
+                <div class="footer-brand">
+                    <a href="#home" class="footer-logo">Onmint</a>
+                    <p class="footer-tagline">Your Health. Our Priority.</p>
+                </div>
+                
+                <nav class="footer-links">
+                    <a href="https://privacy.policy.onmint.in/" target="_blank">Privacy Policy</a>
+                    <a href="https://privacy.policy.onmint.in/" target="_blank">Terms & Conditions</a>
+                    <a href="mailto:support@onmint.in">Contact Us</a>
+                    <a href="delete-account.html" class="delete-link-btn">Account Deletion</a>
+                </nav>
             </div>
-            
-            <nav class="footer-links">
-                <a href="https://privacy.policy.onmint.in/" target="_blank">Privacy Policy</a>
-                <a href="https://privacy.policy.onmint.in/" target="_blank">Terms & Conditions</a>
-                <a href="mailto:support@onmint.in">Contact Us</a>
-                <a href="delete-account.html" class="delete-link-btn">Account Deletion</a>
-            </nav>
             
             <div class="footer-socials">
                 <span class="social-title">Follow Us</span>
