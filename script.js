@@ -266,4 +266,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 5. Download Tabs Switcher
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    if (tabButtons.length && tabContents.length) {
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+
+                // Toggle active class on buttons
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Toggle active class on contents
+                tabContents.forEach(content => {
+                    if (content.id === `${targetTab}-content`) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+        });
+    }
+
+    // 6. APK Installation Guide Accordion Toggle
+    const guideToggle = document.getElementById('apk-guide-toggle');
+    const guideContent = document.getElementById('apk-guide-content');
+
+    if (guideToggle && guideContent) {
+        guideToggle.addEventListener('click', () => {
+            guideToggle.classList.toggle('open');
+            guideContent.classList.toggle('open');
+        });
+    }
 });

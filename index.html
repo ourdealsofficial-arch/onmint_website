@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onmint - Healthcare Services in One Tap</title>
+    <title>Onmint</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta name="description" content="Onmint is your premier digital healthcare platform. Consult doctors online, book home nurses, pathology lab tests, ambulances, and order medicines in a single tap.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -287,34 +288,105 @@
                     <h2>Get the Onmint Apps Today</h2>
                     <p>Start managing all your medical consultations, nursing requirements, lab tests, and deliveries seamlessly.</p>
                     
-                    <div class="download-buttons">
-                        <!-- Patient App Download Button -->
-                        <a href="https://play.google.com/store/apps/details?id=in.onmint.app" target="_blank" class="download-btn">
-                            <div class="btn-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M3 20.5V3.5C3 2.9 3.5 2.5 4.1 2.5C4.3 2.5 4.5 2.6 4.7 2.7L18.8 11.2C19.4 11.5 19.4 12.5 18.8 12.8L4.7 21.3C4.5 21.4 4.3 21.5 4.1 21.5C3.5 21.5 3 21.1 3 20.5ZM17.3 12L5 4.6V19.4L17.3 12Z"/>
-                                </svg>
-                            </div>
-                            <div class="btn-text">
-                                <span class="btn-label">DOWNLOAD FOR PATIENTS</span>
-                                <span class="btn-title">Onmint User App</span>
-                            </div>
-                        </a>
-
-                        <!-- Partner App Download Button -->
-                        <a href="https://play.google.com/store/apps/details?id=in.onmint.partner" target="_blank" class="download-btn partner-download">
-                            <div class="btn-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M3 20.5V3.5C3 2.9 3.5 2.5 4.1 2.5C4.3 2.5 4.5 2.6 4.7 2.7L18.8 11.2C19.4 11.5 19.4 12.5 18.8 12.8L4.7 21.3C4.5 21.4 4.3 21.5 4.1 21.5C3.5 21.5 3 21.1 3 20.5ZM17.3 12L5 4.6V19.4L17.3 12Z"/>
-                                </svg>
-                            </div>
-                            <div class="btn-text">
-                                <span class="btn-label">DOWNLOAD FOR PROVIDERS</span>
-                                <span class="btn-title">Onmint Partner App</span>
-                            </div>
-                        </a>
+                    <!-- Tabs Switcher -->
+                    <div class="download-tabs">
+                        <button class="tab-btn active" data-tab="direct-apk">Direct APK</button>
+                        <button class="tab-btn" data-tab="playstore">Google Play</button>
                     </div>
-                    <p class="download-note">💡 Currently arriving on Google Play Store. Download files are updated automatically.</p>
+
+                    <!-- Google Play Content -->
+                    <div id="playstore-content" class="tab-content">
+                        <div class="download-buttons">
+                            <!-- Patient App Download Button -->
+                            <a href="https://play.google.com/store/apps/details?id=in.onmint.app" target="_blank" class="download-btn">
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 20.5V3.5C3 2.9 3.5 2.5 4.1 2.5C4.3 2.5 4.5 2.6 4.7 2.7L18.8 11.2C19.4 11.5 19.4 12.5 18.8 12.8L4.7 21.3C4.5 21.4 4.3 21.5 4.1 21.5C3.5 21.5 3 21.1 3 20.5ZM17.3 12L5 4.6V19.4L17.3 12Z"/>
+                                    </svg>
+                                </div>
+                                <div class="btn-text">
+                                    <span class="btn-label">DOWNLOAD FOR PATIENTS</span>
+                                    <span class="btn-title">Onmint User App</span>
+                                </div>
+                            </a>
+
+                            <!-- Partner App Download Button -->
+                            <a href="https://play.google.com/store/apps/details?id=in.onmint.partner" target="_blank" class="download-btn partner-download">
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 20.5V3.5C3 2.9 3.5 2.5 4.1 2.5C4.3 2.5 4.5 2.6 4.7 2.7L18.8 11.2C19.4 11.5 19.4 12.5 18.8 12.8L4.7 21.3C4.5 21.4 4.3 21.5 4.1 21.5C3.5 21.5 3 21.1 3 20.5ZM17.3 12L5 4.6V19.4L17.3 12Z"/>
+                                    </svg>
+                                </div>
+                                <div class="btn-text">
+                                    <span class="btn-label">DOWNLOAD FOR PROVIDERS</span>
+                                    <span class="btn-title">Onmint Partner App</span>
+                                </div>
+                            </a>
+                        </div>
+                        <p class="download-note">💡 Currently arriving on Google Play Store. Links will open the Play Store.</p>
+                    </div>
+
+                    <!-- Direct APK Content -->
+                    <div id="direct-apk-content" class="tab-content active">
+                        <div class="download-buttons">
+                            <!-- Direct Patient APK Download Button -->
+                            <a href="downloads/onmint-user.apk" download="onmint-user.apk" class="download-btn">
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M5 20h14v-2H5v2zm7-18L5.33 9h4.67v6h4V9h4.67L12 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="btn-text">
+                                    <span class="btn-label">DIRECT APK DOWNLOAD</span>
+                                    <span class="btn-title">Onmint User App</span>
+                                </div>
+                            </a>
+
+                            <!-- Direct Partner APK Download Button -->
+                            <a href="downloads/onmint-partner.apk" download="onmint-partner.apk" class="download-btn partner-download">
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M5 20h14v-2H5v2zm7-18L5.33 9h4.67v6h4V9h4.67L12 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="btn-text">
+                                    <span class="btn-label">DIRECT APK DOWNLOAD</span>
+                                    <span class="btn-title">Onmint Partner App</span>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Collapsible APK Installation Guide -->
+                        <div class="apk-guide-container">
+                            <button class="apk-guide-toggle" id="apk-guide-toggle">
+                                <span>How to install APK file on Android?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                            <div class="apk-guide-content" id="apk-guide-content">
+                                <div class="guide-steps">
+                                    <div class="guide-step">
+                                        <div class="step-num">1</div>
+                                        <p>Click the download button above to save the <code>.apk</code> file to your device.</p>
+                                    </div>
+                                    <div class="guide-step">
+                                        <div class="step-num">2</div>
+                                        <p>Open the downloaded file from your Notifications or Files app.</p>
+                                    </div>
+                                    <div class="guide-step">
+                                        <div class="step-num">3</div>
+                                        <p>If prompted with <em>"Install unknown apps"</em>, go to settings and enable <strong>"Allow from this source"</strong>.</p>
+                                    </div>
+                                    <div class="guide-step">
+                                        <div class="step-num">4</div>
+                                        <p>Tap <strong>Install</strong> to complete the setup and launch the app!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="download-note">💡 Directly downloads the installer package (APK) to your device instantly.</p>
+                    </div>
                 </div>
             </div>
         </div>

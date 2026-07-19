@@ -863,6 +863,154 @@ h1, h2, h3, h4 {
     margin-bottom: 0 !important;
 }
 
+/* Tabs Switcher */
+.download-tabs {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 5;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--slate-400);
+    padding: 10px 24px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.25s ease;
+}
+
+.tab-btn:hover {
+    color: white;
+}
+
+.tab-btn.active {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Tab Contents */
+.tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Collapsible APK Installation Guide */
+.apk-guide-container {
+    max-width: 500px;
+    margin: 32px auto 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.apk-guide-container:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.apk-guide-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 16px 20px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+}
+
+.apk-guide-toggle .chevron-icon {
+    transition: transform 0.3s ease;
+    stroke: var(--slate-400);
+}
+
+.apk-guide-toggle.open .chevron-icon {
+    transform: rotate(180deg);
+    stroke: white;
+}
+
+.apk-guide-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apk-guide-content.open {
+    max-height: 400px; /* arbitrary height to allow expansion */
+}
+
+.guide-steps {
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+}
+
+.guide-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.guide-step .step-num {
+    background-color: var(--primary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.guide-step p {
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    color: var(--slate-300) !important;
+    line-height: 1.4 !important;
+}
+
+.guide-step code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #93C5FD;
+}
+
 /* Compliance Strip */
 .compliance-strip {
     background-color: var(--primary-light);
