@@ -67,6 +67,15 @@ h1, h2, h3, h4 {
     z-index: 10;
 }
 
+.container-wide {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+}
+
 .text-center { text-align: center; }
 .hidden { display: none !important; }
 
@@ -633,7 +642,7 @@ h1, h2, h3, h4 {
 .vision-card {
     background-color: white;
     border-radius: 28px;
-    padding: 56px;
+    padding: 36px 48px;
     box-shadow: var(--card-shadow);
     border: 1px solid rgba(11, 94, 63, 0.08);
     display: grid;
@@ -789,7 +798,7 @@ h1, h2, h3, h4 {
 }
 
 .download-left-col {
-    padding: 56px;
+    padding: 40px 48px;
     border-right: 1px solid rgba(11, 94, 63, 0.08); /* Separator border line */
     display: flex;
     flex-direction: column;
@@ -798,7 +807,7 @@ h1, h2, h3, h4 {
 }
 
 .download-right-col {
-    padding: 56px;
+    padding: 40px 48px;
     display: flex;
     flex-direction: column;
     justify-content: center;
