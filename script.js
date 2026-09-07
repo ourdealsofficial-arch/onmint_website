@@ -105,65 +105,157 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
+                const role = document.getElementById('account-role').value;
                 let identifier = document.getElementById('account-identifier').value.trim();
-                const password = document.getElementById('account-password').value;
+                const rawPasswordInput = document.getElementById('account-password').value;
+                const password = rawPasswordInput.trim();
                 const countryCode = document.getElementById('country-code').value;
                 
                 const isEmail = identifier.includes('@');
-                if (!isEmail) {
-                    // Remove all spaces, hyphens, parentheses
-                    identifier = identifier.replace(/[\s\-\(\)]/g, '');
-                    
-                    // Remove country prefixes (+91, +1, 91, 1) if manually typed
-                    if (identifier.startsWith('+91')) {
-                        identifier = identifier.substring(3);
-                    } else if (identifier.startsWith('+1')) {
-                        identifier = identifier.substring(2);
-                    } else if (identifier.startsWith('91') && identifier.length === 12) {
-                        identifier = identifier.substring(2);
-                    } else if (identifier.startsWith('1') && identifier.length === 11) {
-                        identifier = identifier.substring(1);
-                    }
-                    
-                    identifier = countryCode + identifier;
-                }
+                let rawPhone = '';
+                let formattedPhone = '';
 
-                const loginPayload = { password: password };
                 if (isEmail) {
-                    loginPayload.email = identifier;
+                    // Email identifier
                 } else {
-                    loginPayload.phone = identifier;
+                    // Extract 10-digit raw phone number
+                    let cleanNum = identifier.replace(/[\s\-\(\)\+]/g, '');
+                    if (cleanNum.startsWith('91') && cleanNum.length === 12) {
+                        cleanNum = cleanNum.substring(2);
+                    } else if (cleanNum.startsWith('1') && cleanNum.length === 11) {
+                        cleanNum = cleanNum.substring(1);
+                    }
+                    rawPhone = cleanNum; // Exactly 10 digits: "9450890156"
+                    formattedPhone = countryCode + cleanNum; // "+919450890156"
                 }
 
-                // 1. Hit Login API
-                const loginRes = await fetch('https://api.onmint.in/api/v1/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(loginPayload)
-                });
-                
-                const loginData = await loginRes.json();
-
-                if (!loginRes.ok || !loginData.success) {
-                    throw new Error(loginData.message || 'Login failed. Please check your credentials.');
+                // 1. Prepare login payload variants for maximum compatibility
+                const passwordsToTest = [password];
+                if (rawPasswordInput !== password) {
+                    passwordsToTest.push(rawPasswordInput);
                 }
-                
-                const accessToken = loginData.data.accessToken;
 
-                // 2. Hit Delete Account API
-                const delRes = await fetch('https://api.onmint.in/api/v1/account/delete', {
-                    method: 'DELETE',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    },
-                    body: JSON.stringify({ confirmPassword: password })
-                });
-                
-                const delData = await delRes.json();
+                const payloadsToTry = [];
+                for (const pwd of passwordsToTest) {
+                    if (isEmail) {
+                        payloadsToTry.push({ email: identifier, password: pwd });
+                        if (role) payloadsToTry.push({ email: identifier, password: pwd, role: role });
+                    } else {
+                        // 1. Raw 10-digit phone without country code (Standard database format)
+                        payloadsToTry.push({ phone: rawPhone, password: pwd });
+                        if (role) payloadsToTry.push({ phone: rawPhone, password: pwd, role: role });
+                        
+                        // 2. Formatted phone with country code
+                        payloadsToTry.push({ phone: formattedPhone, password: pwd });
+                        if (role) payloadsToTry.push({ phone: formattedPhone, password: pwd, role: role });
+                    }
+                }
 
-                if (!delRes.ok || !delData.success) {
-                    throw new Error(delData.message || 'Account deletion failed.');
+                let accessToken = null;
+                let lastErrorMsg = '';
+
+                // Try payload variants sequentially until authentication succeeds
+                for (const payload of payloadsToTry) {
+                    try {
+                        console.log('Sending login attempt:', {
+                            phoneOrEmail: payload.phone || payload.email,
+                            passwordLength: payload.password?.length,
+                            role: payload.role || '(none)'
+                        });
+
+                        const loginRes = await fetch('https://api.onmint.in/api/v1/auth/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        
+                        const loginData = await loginRes.json();
+                        console.log('Server response:', loginRes.status, loginData);
+                        
+                        if (loginRes.ok && loginData.success && loginData.data?.accessToken) {
+                            accessToken = loginData.data.accessToken;
+                            console.log('✅ Authentication successful! Proceeding to account deletion.');
+                            break;
+                        } else {
+                            lastErrorMsg = loginData.message || 'Login failed. Please check your credentials.';
+                        }
+                    } catch (fetchErr) {
+                        lastErrorMsg = 'Network connection error. Please check your internet connection and verify api.onmint.in is reachable.';
+                    }
+                }
+
+                if (!accessToken) {
+                    // Fallback attempt: Try hitting /account/delete directly with user credentials
+                    try {
+                        const directDelPayload = {
+                            role: role,
+                            password: password,
+                            confirmPassword: password,
+                            reason: document.getElementById('deletion-reason')?.value || ''
+                        };
+                        if (isEmail) {
+                            directDelPayload.email = identifier;
+                        } else {
+                            const rawPhone = identifier.replace(/^\+\d{1,3}/, '');
+                            directDelPayload.phone = rawPhone;
+                        }
+
+                        const directRes = await fetch('https://api.onmint.in/api/v1/account/delete', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(directDelPayload)
+                        });
+
+                        const directData = await directRes.json();
+                        if (directRes.ok && directData.success) {
+                            accessToken = 'DIRECT_SUBMITTED';
+                        }
+                    } catch (e) {
+                        // Ignore fallback error and throw clean main error below
+                    }
+                }
+
+                if (!accessToken) {
+                    throw new Error(lastErrorMsg || 'Invalid credentials (401 Unauthorized). The phone/email or password entered does not match an active account.');
+                }
+
+                if (accessToken !== 'DIRECT_SUBMITTED') {
+                    // 2. Hit Delete Account API with token
+                    const delRes = await fetch('https://api.onmint.in/api/v1/account/delete', {
+                        method: 'DELETE',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                        body: JSON.stringify({ confirmPassword: password })
+                    });
+                    
+                    const delData = await delRes.json();
+
+                    if (!delRes.ok || !delData.success) {
+                        throw new Error(delData.message || 'Account deletion request failed.');
+                    }
+                }
+
+                // Calculate masked identifier (e.g. +91 ******0156 or m***a@gmail.com)
+                let maskedIdentifier = '';
+                if (isEmail) {
+                    const parts = identifier.split('@');
+                    if (parts.length === 2) {
+                        const name = parts[0];
+                        const domain = parts[1];
+                        if (name.length <= 2) {
+                            maskedIdentifier = name[0] + '***@' + domain;
+                        } else {
+                            maskedIdentifier = name[0] + '***' + name[name.length - 1] + '@' + domain;
+                        }
+                    } else {
+                        maskedIdentifier = identifier;
+                    }
+                } else {
+                    const lastFour = rawPhone.slice(-4);
+                    const prefix = countryCode ? countryCode + ' ' : '+91 ';
+                    maskedIdentifier = `${prefix}******${lastFour}`;
                 }
 
                 // Show success UI
@@ -179,18 +271,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tokenBox = document.getElementById('token-box');
                 if (tokenBox) {
                     tokenBox.innerHTML = `
-                        <div style="text-align: center; color: #34D399; font-weight: 700; padding: 8px 0;">
+                        <div style="text-align: center; color: #10B981; font-weight: 700; font-size: 16px; padding: 4px 0;">
                             🎉 Account & Data Permanently Deleted Successfully!
                         </div>
-                        <p style="font-size: 12px; color: var(--slate-500); text-align: center; margin-top: 8px;">
-                            All profile fields, bookings, prescriptions, notifications, and files have been cleared from our databases.
+                        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 12px 16px; margin: 14px 0; text-align: center;">
+                            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); font-weight: 700;">Deleted Account Identifier</div>
+                            <div style="font-size: 18px; font-weight: 800; color: #059669; letter-spacing: 0.08em; margin-top: 4px; font-family: 'Courier New', monospace;">${maskedIdentifier}</div>
+                        </div>
+                        <p style="font-size: 13px; color: var(--slate-500); text-align: center; line-height: 1.5; margin-top: 8px;">
+                            All profile records, bookings, medical documents, notification history, and stored files associated with <strong style="color: var(--slate-700);">${maskedIdentifier}</strong> have been permanently erased from our databases.
                         </p>
                     `;
                 }
 
                 const successDesc = successContainer.querySelector('.success-desc');
                 if (successDesc) {
-                    successDesc.textContent = 'GDPR Deletion complete. No active data records found under this identifier.';
+                    successDesc.innerHTML = `GDPR Deletion complete. No active data records found for <strong>${maskedIdentifier}</strong>.`;
                 }
 
             } catch (err) {
